@@ -14,20 +14,24 @@
 
 __licence__ = 'GPLv3'
 __author__ = 'Amine Namouchi'
-__author_email__ = 'bioinfosuite@gmail.com'
+__author_email__ = 'amine.namouchi@gmail.com'
 
 
 import sys
 if sys.version_info[0] < 3:
     print('Python 3 is needed to run this script!')
-    sys.exit(0)
+    sys.exit()
 
 from string import *
 from urllib.request import urlopen
 import subprocess
 
+try:
+    study = sys.argv[1]
+except IndexError:
+    print ('Please provide a study nane') 
+    sys.exit()
 
-study = sys.argv[1]
 url = 'http://www.ebi.ac.uk/ena/data/warehouse/filereport?accession='+study+'&result=read_run&fields=fastq_ftp,fastq_md5,fastq_bytes'
 response = urlopen(url)
 with open(study+'_files_details.txt', 'bw') as f:
